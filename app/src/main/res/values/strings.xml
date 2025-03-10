@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Sales Sense</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="data">Data</string>
+    <string name="register">Register</string>
+    <string name="title_activity_store_managment">StoreManagment</string>
+</resources>
