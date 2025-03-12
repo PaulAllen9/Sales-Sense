@@ -20,7 +20,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     private Context context;
     private ArrayList<String> texts;
     private ArrayList<Integer> images;
-    private int extra;
 
     public CustomAdapter(Context context, ArrayList<String> texts, ArrayList<Integer> images) {
         this.context = context;
