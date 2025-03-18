@@ -45,7 +45,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         Log.d("CustomAdapter", "Text: " + texts.get(position));
         Log.d("CustomAdapter", "Image: " + images.get(position));
         holder.textView.setText(String.valueOf(texts.get(position)));
-        holder.imageView.setImageResource((Integer) images.get(position));
+        holder.imageView.setImageResource(images.get(position));
     }
 
     @Override

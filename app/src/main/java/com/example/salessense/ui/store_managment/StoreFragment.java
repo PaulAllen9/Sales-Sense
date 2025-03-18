@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,7 +34,7 @@ public class StoreFragment extends Fragment {
 
         // Initialize RecyclerView
         RecyclerView recyclerView = binding.recycler;  // Make sure this matches your XML ID
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
 
         ArrayList<String> texts = new ArrayList<>();
         ArrayList<Integer> images = new ArrayList<>();
@@ -59,10 +60,14 @@ public class StoreFragment extends Fragment {
     }
     private void populateRecyclerView(ArrayList<String> texts, ArrayList<Integer> images) {
         // Add items
-        texts.add("Apple");
-        texts.add("Banana");
-        images.add(R.drawable.apple);  // Reference the drawable resource for apple
-        images.add(R.drawable.banana); // Reference the drawable resource for banana
+        for(int i=0;i<25;i++){
+            texts.add("Apple");
+            texts.add("Banana");
+
+            images.add(R.drawable.apple);  // Reference the drawable resource for apple
+            images.add(R.drawable.banana); // Reference the drawable resource for banana
+
+        }
 
 
     }
