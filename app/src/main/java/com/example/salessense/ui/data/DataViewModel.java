@@ -10,7 +10,7 @@ public class DataViewModel extends ViewModel {
 
     public DataViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is the Data fragment.");
+        mText.setValue("This is the Data Fragment.");
     }
 
     public LiveData<String> getText() {
