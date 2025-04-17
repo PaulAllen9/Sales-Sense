@@ -1,4 +1,4 @@
-package com.example.salessense.ui.register;
+package com.example.salessense.BusinessSide.register;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
