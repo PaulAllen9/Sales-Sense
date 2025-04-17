@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.salessense.R;
@@ -30,17 +29,17 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
 
 
-    @NonNull
+
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.display_card, parent, false);
+        View view = inflater.inflate(R.layout.store_display_card, parent, false);
 
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, int position) {
         Log.d("CustomAdapter", "Binding position: " + position);
         Log.d("CustomAdapter", "Text: " + texts.get(position));
         Log.d("CustomAdapter", "Image: " + images.get(position));
@@ -59,7 +58,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         ImageView imageView;
 
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(View itemView) {
             super(itemView);
             textView=itemView.findViewById(R.id.textView);
             imageView=itemView.findViewById(R.id.imageView);
