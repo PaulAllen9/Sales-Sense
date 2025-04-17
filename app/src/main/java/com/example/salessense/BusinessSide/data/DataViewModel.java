@@ -1,4 +1,4 @@
-package com.example.salessense.ui.data;
+package com.example.salessense.BusinessSide.data;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

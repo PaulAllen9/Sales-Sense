@@ -1,4 +1,4 @@
-package com.example.salessense.ui.store_managment;
+package com.example.salessense.BusinessSide.store_managment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
