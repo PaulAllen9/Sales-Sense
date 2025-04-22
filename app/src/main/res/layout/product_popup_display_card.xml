@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
+    android:padding="12dp"
     android:layout_margin="10dp"
     app:cardCornerRadius="15dp"
     app:cardElevation="50dp">
@@ -13,7 +13,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/header_title"
@@ -25,12 +26,10 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                style="@style/HeaderText"
                 android:id="@+id/productNameTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
                 android:text="Product Name"
-                android:textSize="25sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -68,23 +67,109 @@
                     android:id="@+id/productImage"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    app:layout_constraintBottom_toTopOf="@id/productDescription"
                     app:layout_constraintDimensionRatio="1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/apple" />
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/quantitySelection"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toBottomOf="@id/productImage">
+
+                    <ImageButton
+                        android:id="@+id/minusButton"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="1"
+                        android:backgroundTint="@color/invisibleColor"
+                        android:src="@drawable/minus_sign"
+                        android:scaleType="centerInside"
+                        android:padding="5dp"
+                        app:layout_constraintBottom_toBottomOf="@id/quantityET"
+                        app:layout_constraintEnd_toStartOf="@id/quantityET"
+                        app:layout_constraintTop_toTopOf="@id/quantityET" />
+
+                    <EditText
+                        android:id="@+id/quantityET"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:minWidth="50dp"
+                        android:text="1"
+                        app:layout_constraintBottom_toTopOf="@id/addToTransaction"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/plusButton"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:backgroundTint="@color/invisibleColor"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/addition_sign"
+                        app:layout_constraintDimensionRatio="1"
+                        android:padding="5dp"
+                        app:layout_constraintBottom_toBottomOf="@id/quantityET"
+                        app:layout_constraintStart_toEndOf="@id/quantityET"
+                        app:layout_constraintTop_toTopOf="@id/quantityET" />
+
+                    <Button
+                        android:id="@+id/addToTransaction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Add to transaction"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/quantityET" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <TextView
+                    android:id="@+id/DescriptionTextTV"
+                    style="@style/HeaderText"
+                    android:text="Description:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/quantitySelection" />
+
+                <TextView
+                    style="@style/basicText"
                     android:id="@+id/productDescription"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:text="Product Description that gopes on an anana ananan"
-                    android:textSize="100sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/productImage" />
+                    app:layout_constraintTop_toBottomOf="@id/DescriptionTextTV" />
+
+                <Button
+                    android:id="@+id/editProductBTN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/blue"
+                    android:text="Edit Product"
+                    app:layout_constraintTop_toBottomOf="@id/productDescription"
+                    app:layout_constraintBottom_toTopOf="@+id/deleteProductBTN"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <Button
+                    android:id="@+id/deleteProductBTN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/dark_red"
+                    android:text="Delete Product"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+
+
+                    />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
