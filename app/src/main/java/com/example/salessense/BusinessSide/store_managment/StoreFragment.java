@@ -44,18 +44,11 @@ public class StoreFragment extends Fragment {
 
         ArrayList<Product> products = new ArrayList<>();
 
-
-
-
-
         populateRecyclerView(products); // Populate the data
 
         // Set up the adapter
         CustomAdapter customAdapter = new CustomAdapter(getContext(), products);
         recyclerView.setAdapter(customAdapter); // Attach the adapter here
-
-
-
 
         return root;
     }
@@ -74,7 +67,7 @@ public class StoreFragment extends Fragment {
         * */
 
         Product appleProduct= new Product("Apple",1,R.drawable.apple,"This is the most delicous apple",.59);
-        Product bananaProduct= new Product("Banana",1,R.drawable.banana,"Go banana go",.29);
+        Product bananaProduct= new Product("Banana",2,R.drawable.banana,"This banana is the most banana banana that you ever had. It is so delicious and you want to eat it. Its straight from the tropical beaches of hawii and is perfectly ripe. Come try our bananas",.29);
 
         products.add(appleProduct);
         products.add(bananaProduct);
