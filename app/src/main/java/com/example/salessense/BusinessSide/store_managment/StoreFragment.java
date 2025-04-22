@@ -1,5 +1,8 @@
 package com.example.salessense.BusinessSide.store_managment;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.salessense.Product;
 import com.example.salessense.R;
 import com.example.salessense.databinding.FragmentManagmentBinding;
 
@@ -20,6 +24,7 @@ public class StoreFragment extends Fragment {
 
     private FragmentManagmentBinding binding;
 
+    private TextView emptyMessage;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -29,23 +34,28 @@ public class StoreFragment extends Fragment {
         binding = FragmentManagmentBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        // Set up LiveData observation
+        emptyMessage = binding.emptyMessage;
+        storeViewModel.getText().observe(getViewLifecycleOwner(), emptyMessage::setText);
+
         // Initialize RecyclerView
         RecyclerView recyclerView = binding.recycler;  // Make sure this matches your XML ID
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
 
-        ArrayList<String> texts = new ArrayList<>();
-        ArrayList<Integer> images = new ArrayList<>();
-        populateRecyclerView(texts, images); // Populate the data
+        ArrayList<Product> products = new ArrayList<>();
 
+
+
+
+
+        populateRecyclerView(products); // Populate the data
 
         // Set up the adapter
-        CustomAdapter customAdapter = new CustomAdapter(getContext(), texts, images);
+        CustomAdapter customAdapter = new CustomAdapter(getContext(), products);
         recyclerView.setAdapter(customAdapter); // Attach the adapter here
 
 
-        // Set up LiveData observation
-        final TextView textView = binding.textHome;
-        storeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
 
         return root;
     }
@@ -55,14 +65,24 @@ public class StoreFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-    private void populateRecyclerView(ArrayList<String> texts, ArrayList<Integer> images) {
-        // Add items
-        for(int i=0;i<25;i++){
-            texts.add("Apple");
-            texts.add("Banana");
+    private void populateRecyclerView(ArrayList<Product> products) {
+        /*
+        * Author: Paul Allen
+        * Last modified: 4/17/25
+        *
+        * This function is supposed to add items to the arrays, which will be used to craft the CardViews
+        * */
 
-            images.add(R.drawable.apple);  // Reference the drawable resource for apple
-            images.add(R.drawable.banana); // Reference the drawable resource for banana
+        Product appleProduct= new Product("Apple",1,R.drawable.apple,"This is the most delicous apple",.59);
+        Product bananaProduct= new Product("Banana",1,R.drawable.banana,"Go banana go",.29);
+
+        products.add(appleProduct);
+        products.add(bananaProduct);
+        if(products.isEmpty()){
+            emptyMessage.setVisibility(VISIBLE);
+        }
+        else{
+            emptyMessage.setVisibility(GONE);
 
         }
 
