@@ -3,10 +3,17 @@ package com.example.salessense.BusinessSide.store_managment;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.salessense.Dialogs.AddProductDialog;
 import com.example.salessense.Product;
 import com.example.salessense.R;
 import com.example.salessense.databinding.FragmentManagmentBinding;
@@ -23,6 +31,7 @@ import java.util.ArrayList;
 public class StoreFragment extends Fragment {
 
     private FragmentManagmentBinding binding;
+    private Button addProductButon;
 
     private TextView emptyMessage;
     @Override
@@ -50,6 +59,15 @@ public class StoreFragment extends Fragment {
         CustomAdapter customAdapter = new CustomAdapter(getContext(), products);
         recyclerView.setAdapter(customAdapter); // Attach the adapter here
 
+        addProductButon = binding.addProductButton;
+        addProductButon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddProductDialog.showProductDialog(getContext(), customAdapter);
+            }
+        });
+
+
         return root;
     }
 
@@ -67,8 +85,7 @@ public class StoreFragment extends Fragment {
         * */
 
         Product appleProduct= new Product("Apple",1,R.drawable.apple,"This is the most delicous apple",.59);
-        Product bananaProduct= new Product("Banana",2,R.drawable.banana,"This banana is the most banana banana that you ever had. It is so delicious and you want to eat it. Its straight from the tropical beaches of hawii and is perfectly ripe. Come try our bananas",.29);
-
+        Product bananaProduct= new Product("Banana",2,R.drawable.banana,"This banana is crazy good.",.69);
         products.add(appleProduct);
         products.add(bananaProduct);
         if(products.isEmpty()){

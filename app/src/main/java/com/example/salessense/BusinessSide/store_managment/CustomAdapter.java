@@ -1,25 +1,18 @@
 package com.example.salessense.BusinessSide.store_managment;
 
 
-import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.salessense.Dialogs.ViewProductDialog;
 import com.example.salessense.Product;
 import com.example.salessense.R;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -53,26 +46,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         // Set click listener to show product details
         holder.itemView.setOnClickListener(view -> {
-            Dialog mDialog = new Dialog(context);
-            mDialog.setContentView(R.layout.product_popup_display_card);
-            mDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            mDialog.setCancelable(true);
-
-            ImageButton exit = mDialog.findViewById(R.id.closePopupButton);
-            TextView productNameTV = mDialog.findViewById(R.id.productNameTV);
-            ImageView productImage = mDialog.findViewById(R.id.productImage);
-            TextView productDescription = mDialog.findViewById(R.id.productDescription);
-
-            // Set product details in the dialog
-            productNameTV.setText(product.getName());
-            productImage.setImageResource(product.getPicture());
-            productDescription.setText(product.getDescription()); // Assuming Product class has a description field
-
-            exit.setOnClickListener(v -> mDialog.dismiss());
-
-            mDialog.show();
+            ViewProductDialog.showProductDialog(context, this,product);
         });
+
     }
 
     @Override
@@ -90,7 +66,17 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             super(itemView);
             textView=itemView.findViewById(R.id.textView);
             imageView=itemView.findViewById(R.id.imageView);
-
+        }
+    }
+    public void addProduct(Product product){
+        products.add(product);
+    }
+    public void removeProduct(Product product){
+        int position = products.indexOf(product); // Get the position of the product
+        if (position != -1) { // Ensure product exists in the list
+            products.remove(position);
+            notifyItemRemoved(position); // Notify adapter of item removed
+            notifyItemRangeChanged(position, products.size()); // Update affected items
         }
     }
 
