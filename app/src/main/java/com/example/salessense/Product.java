@@ -8,6 +8,7 @@ public class Product {
     private double price;
     private int totalSold;
     private int backStock;
+    private boolean visibleFilter = true;
 
     public Product(String name, int id, int picture, String description, double price){
         this.name=name;
@@ -15,6 +16,7 @@ public class Product {
         this.picture=picture;
         this.description=description;
         this.price=price;
+
     }
 
     public String getName() {
@@ -71,5 +73,13 @@ public class Product {
 
     public void setBackStock(int backStock) {
         this.backStock = backStock;
+    }
+
+    public boolean isVisibleFilter() {
+        return visibleFilter;
+    }
+
+    public void setVisibleFilter(boolean visibleFilter) {
+        this.visibleFilter = visibleFilter;
     }
 }

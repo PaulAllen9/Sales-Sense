@@ -16,7 +16,6 @@ import com.example.salessense.Product;
 import com.example.salessense.R;
 
 public class ViewProductDialog {
-    private Product product;
     public static void showProductDialog(Context context, CustomAdapter adapter, Product product) {
         Dialog mDialog = new Dialog(context);
         mDialog.setContentView(R.layout.product_popup_display_card);
@@ -30,6 +29,7 @@ public class ViewProductDialog {
         TextView productDescription = mDialog.findViewById(R.id.productDescription);
 
         EditText quantity = mDialog.findViewById(R.id.quantityET);
+        Button editProductBTN = mDialog.findViewById(R.id.editProductBTN);
         Button deleteProductBTN = mDialog.findViewById(R.id.deleteProductBTN);
         ImageButton plus = mDialog.findViewById(R.id.plusButton);
         ImageButton minus = mDialog.findViewById(R.id.minusButton);
@@ -49,6 +49,13 @@ public class ViewProductDialog {
         });
 
 
+
+        editProductBTN.setOnClickListener(view -> {
+            AddProductDialog dialog = new AddProductDialog(context,adapter);
+            dialog.editProductDialog(product);
+            mDialog.dismiss();
+
+        });
         deleteProductBTN.setOnClickListener(view -> {
             adapter.removeProduct(product);
             mDialog.dismiss();

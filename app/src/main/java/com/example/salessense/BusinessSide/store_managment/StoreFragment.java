@@ -29,6 +29,12 @@ import com.example.salessense.databinding.FragmentManagmentBinding;
 import java.util.ArrayList;
 
 public class StoreFragment extends Fragment {
+    /*
+     * Author: Paul Allen
+     * Last modified: 4/29/25
+     *
+     * This fragment hsa the general controls for the store management aspect of this project.
+     * */
 
     private FragmentManagmentBinding binding;
     private Button addProductButon;
@@ -58,12 +64,17 @@ public class StoreFragment extends Fragment {
         // Set up the adapter
         CustomAdapter customAdapter = new CustomAdapter(getContext(), products);
         recyclerView.setAdapter(customAdapter); // Attach the adapter here
-
+        EditText searchText = binding.searchBar;
+        Button searchBTN = binding.searchButton;
+        searchBTN.setOnClickListener(view -> {
+            customAdapter.getFilter().filter(searchText.getText().toString().trim());
+        });
         addProductButon = binding.addProductButton;
         addProductButon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AddProductDialog.showProductDialog(getContext(), customAdapter);
+                AddProductDialog dialog =   new AddProductDialog(getContext(), customAdapter);
+                dialog.showProductDialog();
             }
         });
 
@@ -93,7 +104,6 @@ public class StoreFragment extends Fragment {
         }
         else{
             emptyMessage.setVisibility(GONE);
-
         }
 
 
