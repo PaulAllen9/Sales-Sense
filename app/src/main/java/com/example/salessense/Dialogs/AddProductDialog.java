@@ -10,12 +10,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.salessense.BusinessSide.store_managment.CustomAdapter;
 import com.example.salessense.Product;
 import com.example.salessense.R;
 
 public class AddProductDialog {
+    /*
+     * Author: Paul Allen
+     * Last modified: 4/29/25
+     *
+     * Creates the dialog popup to add or edit a product
+     */
     private Dialog mDialog;
     private ImageButton exit;
     private Button addProduct, addPictureBTN;
@@ -23,10 +30,11 @@ public class AddProductDialog {
     private ImageView picture;
 
     private CustomAdapter adapter;
+    private Context context;
     public AddProductDialog(Context context, CustomAdapter adapter){
         mDialog = initializeDialog(context);
         this.adapter=adapter;
-
+        this.context=context;
         exit = mDialog.findViewById(R.id.closePopupButton);
         addProduct = mDialog.findViewById(R.id.finalizeBTN);
         name = mDialog.findViewById(R.id.pNameET);
@@ -50,8 +58,14 @@ public class AddProductDialog {
         addProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adapter.addProduct(new Product(name.getText().toString().trim(),3,R.drawable.apple,description.getText().toString().trim(), Double.parseDouble(price.getText().toString())  ));
-                mDialog.dismiss();
+                double value;
+                try {
+                    value = Integer.parseInt(String.valueOf(price.getText().toString().trim()));
+                    adapter.addProduct(new Product(name.getText().toString().trim(),3,R.drawable.apple,description.getText().toString().trim(), value  ));
+                    mDialog.dismiss();
+                } catch (NumberFormatException e) {
+                    Toast.makeText(context, "The price value must be a positive number.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -66,8 +80,14 @@ public class AddProductDialog {
         addProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adapter.replaceProduct(product, new Product(name.getText().toString().trim(),3,R.drawable.apple,description.getText().toString().trim(), Double.parseDouble(price.getText().toString())  ));
-                mDialog.dismiss();
+                double value;
+                try {
+                    value = Integer.parseInt(String.valueOf(price.getText().toString().trim()));
+                    adapter.replaceProduct(product, new Product(name.getText().toString().trim(),3,R.drawable.apple,description.getText().toString().trim(), value  ));
+                    mDialog.dismiss();
+                } catch (NumberFormatException e) {
+                    Toast.makeText(context, "The price value must be a positive number.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         mDialog.show();

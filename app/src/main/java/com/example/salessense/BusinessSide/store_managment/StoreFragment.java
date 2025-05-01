@@ -33,7 +33,7 @@ public class StoreFragment extends Fragment {
      * Author: Paul Allen
      * Last modified: 4/29/25
      *
-     * This fragment hsa the general controls for the store management aspect of this project.
+     * This fragment is the general controls for the store management aspect of this project.
      * */
 
     private FragmentManagmentBinding binding;
@@ -50,6 +50,7 @@ public class StoreFragment extends Fragment {
         View root = binding.getRoot();
 
         // Set up LiveData observation
+        // I don't think we need this, but may be useful for when we integrate with the remote database
         emptyMessage = binding.emptyMessage;
         storeViewModel.getText().observe(getViewLifecycleOwner(), emptyMessage::setText);
 
@@ -63,12 +64,16 @@ public class StoreFragment extends Fragment {
 
         // Set up the adapter
         CustomAdapter customAdapter = new CustomAdapter(getContext(), products);
-        recyclerView.setAdapter(customAdapter); // Attach the adapter here
+        recyclerView.setAdapter(customAdapter); // Attaching the adapter
+
+        // Search bar functionality
         EditText searchText = binding.searchBar;
         Button searchBTN = binding.searchButton;
         searchBTN.setOnClickListener(view -> {
             customAdapter.getFilter().filter(searchText.getText().toString().trim());
         });
+
+        // Adding a product
         addProductButon = binding.addProductButton;
         addProductButon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,13 +97,16 @@ public class StoreFragment extends Fragment {
         * Author: Paul Allen
         * Last modified: 4/17/25
         *
-        * This function is supposed to add items to the arrays, which will be used to craft the CardViews
+        * This function is supposed to add items to the arrays, which will be used to craft the
+        * cardViews inside of the recycler view.
         * */
 
         Product appleProduct= new Product("Apple",1,R.drawable.apple,"This is the most delicous apple",.59);
         Product bananaProduct= new Product("Banana",2,R.drawable.banana,"This banana is crazy good.",.69);
         products.add(appleProduct);
         products.add(bananaProduct);
+
+
         if(products.isEmpty()){
             emptyMessage.setVisibility(VISIBLE);
         }

@@ -32,6 +32,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
 
     public CustomAdapter(Context context, ArrayList<Product> products) {
+        /*
+        * Author: Paul Allen
+        * Last modified: 4/17/25
+        */
         this.context = context;
         this.products = products;
         allProducts = new ArrayList<>(products); // Creates a full copy of all of the products may not need after implementing remote database
@@ -39,6 +43,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        /*
+         * Author: Paul Allen
+         * Last modified: 4/17/25
+         */
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.store_display_card, parent, false);
         return new MyViewHolder(view);
@@ -46,6 +54,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        /*
+         * Author: Paul Allen
+         * Last modified: 4/29/25
+         */
         Product product = products.get(position); // Get the correct product
 
         holder.textView.setText(product.getName());
@@ -53,18 +65,26 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         // Set click listener to show product details
         holder.itemView.setOnClickListener(view -> {
-            ViewProductDialog.showProductDialog(context, this,product);
+            ViewProductDialog viewProduct = new ViewProductDialog(context,this);
+            viewProduct.viewProductBusiness(product);
         });
 
     }
 
     @Override
     public int getItemCount() {
+        /*
+         * Author: Paul Allen
+         * Last modified: 4/05/25
+         */
         return products.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-
+        /*
+         * Author: Paul Allen
+         * Last modified: 4/17/25
+         */
         TextView textView;
         ImageView imageView;
 
@@ -76,9 +96,17 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         }
     }
     public void addProduct(Product product){
+        /*
+         * Author: Paul Allen
+         * Last modified: 4/28/25
+         */
         products.add(product);
     }
     public void removeProduct(Product product){
+        /*
+         * Author: Paul Allen
+         * Last modified: 4/28/25
+         */
         int position = products.indexOf(product); // Get the position of the product
         if (position != -1) { // Ensure product exists in the list
             products.remove(position);
@@ -87,6 +115,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         }
     }
     public void replaceProduct(Product oldProduct, Product newProduct){
+        /*
+         * Author: Paul Allen
+         * Last modified: 4/29/25
+         */
         int position = products.indexOf(oldProduct); // Get the position of the product
         if (position != -1) { // Ensure product exists in the list
             products.set(position,newProduct);
@@ -96,19 +128,31 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     }
     @Override
     public Filter getFilter() {
+        /*
+         * Author: Paul Allen
+         * Last modified: 4/29/25
+         */
         return productFilter;
     }
 
     private Filter productFilter = new Filter() {
+        /*
+         * Author: Paul Allen
+         * Last modified: 4/29/25
+         *
+         * Call by getFilter().performFilter(key)
+         * Should filter the results of the recycler view based off of the search bars contents
+         */
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             ArrayList<Product> filteredList = new ArrayList<>();
 
             if (constraint == null || constraint.length() == 0) {
-                filteredList.addAll(allProducts); // Show all items if no filter is applied
+                // Show all items if no filter is applied
+                filteredList.addAll(allProducts);
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
-
+                // Search all the product names and descriptions to see if it contains the key
                 for (Product product : allProducts) {
                     if (product.getName().toLowerCase().contains(filterPattern) ||
                             product.getDescription().toLowerCase().contains(filterPattern)) {
@@ -124,10 +168,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
+            /*
+             * Author: Paul Allen
+             * Last modified: 4/29/25
+             */
             products.clear();
             products.addAll((ArrayList<Product>) results.values);
             notifyDataSetChanged(); // Notify the adapter of data changes
         }
     };
 }
-
