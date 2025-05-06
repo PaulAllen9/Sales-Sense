@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp"
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/header_title"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/closePopupButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/red"
+            android:src="@drawable/white_close_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/pNameTV"
+        style="@style/HeaderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Product Name:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_title" />
+
+    <EditText
+        android:id="@+id/pNameET"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="i.e. Apple"
+        android:inputType="text"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toStartOf="@+id/pNameTV"
+        app:layout_constraintTop_toBottomOf="@+id/pNameTV" />
+
+    <TextView
+        android:id="@+id/pDescriptionTV"
+        style="@style/HeaderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Product Description:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pNameET" />
+
+    <EditText
+        android:id="@+id/pDescriptionET"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="i.e This apple is delicious."
+        android:inputType="text"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toStartOf="@+id/pDescriptionTV"
+        app:layout_constraintTop_toBottomOf="@+id/pDescriptionTV" />
+
+    <TextView
+        android:id="@+id/pPriceTV"
+        style="@style/HeaderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Price:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pDescriptionET" />
+
+    <TextView
+        style="@style/HeaderText"
+        android:id="@+id/dollarSign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$"
+        app:layout_constraintStart_toStartOf="@+id/pPriceTV"
+        app:layout_constraintTop_toBottomOf="@+id/pPriceTV" />
+
+    <EditText
+        android:id="@+id/pPriceET"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="i.e 0.59"
+        android:inputType="numberDecimal"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toEndOf="@+id/dollarSign"
+        app:layout_constraintTop_toBottomOf="@+id/pPriceTV" />
+
+    <!-- NEW Quantity Section -->
+    <TextView
+        android:id="@+id/pQuantityTV"
+        style="@style/HeaderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Quantity:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pPriceET" />
+
+    <EditText
+        android:id="@+id/pQuantityET"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="e.g. 10"
+        android:inputType="number"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toStartOf="@+id/pQuantityTV"
+        app:layout_constraintTop_toBottomOf="@+id/pQuantityTV" />
+    <!-- END Quantity Section -->
+
+    <TextView
+        android:id="@+id/addImageTV"
+        style="@style/HeaderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Add Image: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pQuantityET" />
+
+    <ImageView
+        android:id="@+id/pictureIV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/addImageTV"
+        app:layout_constraintTop_toBottomOf="@+id/addImageTV"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/addImageBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Image"
+        app:layout_constraintStart_toStartOf="@+id/addImageTV"
+        app:layout_constraintTop_toBottomOf="@+id/pictureIV" />
+
+    <Button
+        android:id="@+id/finalizeBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finalize Product"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

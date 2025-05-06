@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation2"
+    app:startDestination="@+id/store_managment">
+
+    <fragment
+        android:id="@+id/store_managment"
+        android:name="com.example.salessense.BusinessSide.store_managment.StoreFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_managment" />
+
+    <fragment
+        android:id="@+id/navigation_register"
+        android:name="com.example.salessense.BusinessSide.register.RegisterFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_register" />
+
+    <fragment
+        android:id="@+id/navigation_data"
+        android:name="com.example.salessense.BusinessSide.data.DataFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_data" />
+</navigation>

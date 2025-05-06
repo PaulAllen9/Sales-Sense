@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1098222935169",
+    "project_id": "sales-sense-de903",
+    "storage_bucket": "sales-sense-de903.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098222935169:android:259ab940adf535ebaa8180",
+        "android_client_info": {
+          "package_name": "com.example.salessense"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDh5QpuZVokRZiwaKiSI0F3QSZZ0R_JKb8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
