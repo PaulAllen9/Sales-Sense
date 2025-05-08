@@ -37,7 +37,6 @@ public class AddProductDialog {
 
     private CustomAdapter adapter;
     private Context context;
-
     public AddProductDialog(Context context, CustomAdapter adapter) {
         this.context = context;
         this.adapter = adapter;

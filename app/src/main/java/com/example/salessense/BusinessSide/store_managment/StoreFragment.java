@@ -89,7 +89,7 @@ public class StoreFragment extends Fragment {
                     long id = document.getLong("id") != null ? document.getLong("id") : 0;
                     double price = document.getDouble("price") != null ? document.getDouble("price") : 0.0;
                     String desc = document.getString("description");
-
+                    long backStock =document.getLong("stock")!= null ? document.getLong("stock") : 0;;
                     // Brian added: New logic - Assign default image based on name, else use
                     // minus_sign
                     int image;
@@ -101,7 +101,7 @@ public class StoreFragment extends Fragment {
                         image = R.drawable.minus_sign; // Default icon
                     }
 
-                    Product product = new Product(name, (int) id, image, desc, price);
+                    Product product = new Product(name, (int) id, image, desc, price,(int)backStock);
                     products.add(product);
                 }
 

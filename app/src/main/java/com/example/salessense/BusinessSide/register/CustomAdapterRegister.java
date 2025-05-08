@@ -4,13 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.salessense.Dialogs.ViewProductDialog;
+import com.example.salessense.Product;
 import com.example.salessense.R;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -26,24 +28,19 @@ import java.util.ArrayList;
 public class CustomAdapterRegister extends RecyclerView.Adapter<CustomAdapterRegister.MyViewHolder> {
 
     private Context context;
-    private ArrayList<String> productNames;
-    private ArrayList<Integer> productQuantities;
-    private ArrayList<Float> productPrices;
+    private ArrayList<Product> products;
+    private TextView amount;
 
-    public interface OnCartActionListener {
-        void onAddToCart(String productId, int quantity);
-    }
-
-    private OnCartActionListener cartActionListener;
-
-    public CustomAdapterRegister(Context context, ArrayList<String> productNames,
-                                 ArrayList<Integer> productQuantities,
-                                 ArrayList<Float> productPrices, OnCartActionListener listener) {
+//    public interface OnCartActionListener {
+//        void onAddToCart(String productId, int quantity);
+//    }
+//
+//    private OnCartActionListener cartActionListener;
+//
+    public CustomAdapterRegister(Context context, ArrayList<Product> products, TextView amount) {
         this.context = context;
-        this.productNames = productNames;
-        this.productQuantities = productQuantities;
-        this.productPrices = productPrices;
-        this.cartActionListener = listener; // Brian add: Saves the callback
+        this.products=products;
+        this.amount=amount;
     }
 
     @Override
@@ -55,50 +52,67 @@ public class CustomAdapterRegister extends RecyclerView.Adapter<CustomAdapterReg
     // Brian Notes: Most of these changes were made to help the flow of data to Firestore.
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        String name = productNames.get(position);
-        int stock = productQuantities.get(position);
-        float price = productPrices.get(position);
-
-        holder.nameTV.setText(name);
-        holder.priceTV.setText(String.format("$%.2f ea", price));   // better price formatting
-        holder.stockTV.setText("Stock: " + stock);                  // stock label
-
-        holder.addToCartButton.setOnClickListener(v -> {
-            int quantity = 1;
-            try {
-                String input = holder.quantityInput.getText().toString().trim();
-                if (!input.isEmpty()) {
-                    quantity = Integer.parseInt(input);             // parse quantity
-                }
-            } catch (NumberFormatException e) {
-                quantity = 1;                                       // 1 if input is invalid
-            }
-
-            if (cartActionListener != null && quantity > 0) {
-                cartActionListener.onAddToCart(name.toLowerCase(), quantity); /* Custom listener
-                for Firestore integration */
-            }
+        Product product = products.get(position);
+        holder.nameTV.setText(product.getName());
+        holder.priceTV.setText(String.format("$%.2f ea", product.getPrice()));   // better price formatting
+        holder.stockTV.setText("Stock: " + product.getBackStock());                  // stock label
+        holder.quantityTV.setText(""+product.getQuantityInCart());
+        holder.itemSum.setText(String.format("$%.2f",(product.getQuantityInCart()*product.getPrice())));
+        holder.itemView.setOnClickListener(view -> {
+            ViewProductDialog edit = new ViewProductDialog(context, this);
+            edit.viewProductRegister(product);
         });
     }
 
     @Override
     public int getItemCount() {
-        return productNames.size();
+        return products.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView nameTV, priceTV, stockTV;
-        EditText quantityInput;
-        Button addToCartButton;
+        TextView nameTV, priceTV, stockTV, quantityTV, itemSum;
+
 
         public MyViewHolder(View itemView) {
             super(itemView);
             nameTV = itemView.findViewById(R.id.itemNameTV);
-            priceTV = itemView.findViewById(R.id.priceTV);
-            stockTV = itemView.findViewById(R.id.quantityTV);
-            quantityInput = itemView.findViewById(R.id.quantityInput);
-            addToCartButton = itemView.findViewById(R.id.buyButton);
-            addToCartButton.setText("Add to Cart");
+            priceTV = itemView.findViewById(R.id.itemPriceTV);
+            stockTV = itemView.findViewById(R.id.backStock);
+            quantityTV = itemView.findViewById(R.id.quantityTV);
+            itemSum = itemView.findViewById(R.id.itemSumTV);
+
         }
     }
+
+    public void removeProduct(Product product) {
+        /*
+         * Author: Paul Allen
+         * Last modified: 4/28/25
+         */
+        int position = products.indexOf(product); // Get the position of the product
+        if (position != -1) {
+            products.remove(position);
+            notifyItemRemoved(position); // Notify adapter of item removed
+            notifyItemRangeChanged(position, products.size()); // Update affected items
+        }
+        updateTotal();
+    }
+
+    public void updateProduct(Product oldProduct) {
+        /*
+         * Author: Paul Allen
+         * Last modified: 4/29/25
+         */
+        notifyItemChanged(products.indexOf(oldProduct));
+        updateTotal();
+
+    }
+    public void updateTotal(){
+        double total=0;
+        for(Product i:products){
+            total+=(i.getQuantityInCart()*i.getPrice());
+        }
+        amount.setText(String.format("$%.2f",total));
+    }
+
 }

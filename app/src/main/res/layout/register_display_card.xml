@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
@@ -13,56 +14,53 @@
         android:padding="12dp">
 
         <TextView
+            style="@style/SmallHeaderText"
             android:id="@+id/itemNameTV"
-            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Apple"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:text="Product\nName"
+            android:gravity="center"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/priceTV"
-            app:layout_constraintHorizontal_weight="1" />
-
-        <TextView
-            android:id="@+id/priceTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="$0.59"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/quantityTV"
+            style="@style/SmallHeaderText"
+            android:id="@+id/itemPriceTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Stock: 12"
+            android:gravity="center"
+            android:text="Individual\nPrice"
+            app:layout_constraintEnd_toStartOf="@+id/quantityTV"
+            app:layout_constraintStart_toEndOf="@+id/itemNameTV"
+            app:layout_constraintTop_toTopOf="@+id/itemNameTV" />
+
+        <TextView
+            android:id="@+id/backStock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amount in\nBackstock"
             android:textSize="14sp"
             app:layout_constraintTop_toBottomOf="@id/itemNameTV"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <EditText
-            android:id="@+id/quantityInput"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:hint="Qty"
-            android:inputType="number"
-            android:text="1"
-            android:gravity="center"
-            android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@id/quantityTV"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="8dp" />
-
-        <Button
-            android:id="@+id/buyButton"
+        <TextView
+            style="@style/SmallHeaderText"
+            android:id="@+id/quantityTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Buy"
-            app:layout_constraintTop_toBottomOf="@id/priceTV"
+            android:text="Quantity"
+            app:layout_constraintStart_toEndOf="@id/itemSumTV"
+            app:layout_constraintEnd_toStartOf="@+id/itemPriceTV"
+            app:layout_constraintTop_toTopOf="@+id/itemNameTV" />
+
+        <TextView
+            style="@style/SmallHeaderText"
+            android:id="@+id/itemSumTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Item Sum\nPrice"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp" />
+            app:layout_constraintTop_toTopOf="@+id/itemNameTV" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

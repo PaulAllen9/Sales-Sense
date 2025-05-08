@@ -8,7 +8,8 @@ public class Product {
     private double price;
     private int totalSold;
     private int backStock;
-    private boolean visibleFilter = true;
+    private int quantityInCart=0;
+    //private boolean visibleFilter = true;
 
     public Product(String name, int id, int picture, String description, double price){
         this.name=name;
@@ -16,7 +17,14 @@ public class Product {
         this.picture=picture;
         this.description=description;
         this.price=price;
-
+    }
+    public Product(String name, int id, int picture, String description, double price, int backStock){
+        this.name=name;
+        this.id=id;
+        this.picture=picture;
+        this.description=description;
+        this.price=price;
+        this.backStock=backStock;
     }
 
     public String getName() {
@@ -75,11 +83,20 @@ public class Product {
         this.backStock = backStock;
     }
 
-    public boolean isVisibleFilter() {
-        return visibleFilter;
+//    public boolean isVisibleFilter() {
+//        return visibleFilter;
+//    }
+//
+//    public void setVisibleFilter(boolean visibleFilter) {
+//        this.visibleFilter = visibleFilter;
+//    }
+
+
+    public int getQuantityInCart() {
+        return quantityInCart;
     }
 
-    public void setVisibleFilter(boolean visibleFilter) {
-        this.visibleFilter = visibleFilter;
+    public void setQuantityInCart(int quantityInCart) {
+        this.quantityInCart = quantityInCart;
     }
 }

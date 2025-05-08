@@ -5,5 +5,5 @@
     <string name="title_notifications">Notifications</string>
     <string name="data">Data</string>
     <string name="register">Register</string>
-    <string name="title_activity_store_managment">StoreManagment</string>
+    <string name="title_activity_store_managment">Store</string>
 </resources>

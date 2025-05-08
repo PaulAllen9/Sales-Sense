@@ -8,7 +8,6 @@
     android:background="@color/off_white"
     tools:context=".BusinessSide.store_managment.StoreFragment">
 
-    <!-- ✅ Removed red CardView header -->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
@@ -40,14 +39,24 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/searchBar"
+            android:id="@+id/totalAmount"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginEnd="8dp"
+            android:layout_height="wrap_content"
+            android:text="Amount"
             android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/totalMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total: "
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="@+id/totalAmount"
+            app:layout_constraintEnd_toStartOf="@+id/totalAmount"
+            app:layout_constraintTop_toTopOf="@+id/totalAmount" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
