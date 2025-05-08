@@ -47,7 +47,7 @@ public class AddProductDialog {
         name = mDialog.findViewById(R.id.pNameET);
         description = mDialog.findViewById(R.id.pDescriptionET);
         price = mDialog.findViewById(R.id.pPriceET);
-        quantity = mDialog.findViewById(R.id.pQuantityET);  // ✅ required for stock
+        quantity = mDialog.findViewById(R.id.pQuantityET);  // required for stock
         addPictureBTN = mDialog.findViewById(R.id.addImageBTN);
         picture = mDialog.findViewById(R.id.pictureIV);
 
@@ -77,8 +77,8 @@ public class AddProductDialog {
             }
 
             try {
-                double parsedPrice = Double.parseDouble(priceText);   // ✅ decimal-safe
-                int stock = Integer.parseInt(qtyText);                // ✅ for Firestore field
+                double parsedPrice = Double.parseDouble(priceText);   // decimal-safe
+                int stock = Integer.parseInt(qtyText);                // for Firestore field
 
                 // Choose image: apple, banana, or default to minus_sign
                 int image;
@@ -87,7 +87,7 @@ public class AddProductDialog {
                 } else if (nameText.equalsIgnoreCase("banana")) {
                     image = R.drawable.banana;
                 } else {
-                    image = R.drawable.minus_sign;  // ✅ default
+                    image = R.drawable.minus_sign;  //default
                 }
 
                 Map<String, Object> productData = new HashMap<>();
