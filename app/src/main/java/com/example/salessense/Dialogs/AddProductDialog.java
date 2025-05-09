@@ -77,8 +77,14 @@ public class AddProductDialog {
             }
 
             try {
-                double parsedPrice = Double.parseDouble(priceText);   // decimal-safe
+                double parsedPrice = Double.parseDouble(priceText);   // decimal safe
                 int stock = Integer.parseInt(qtyText);                // for Firestore field
+
+                // Brian added: Check inventory
+                if (stock == 0) {
+                    Toast.makeText(context, "Quantity cannot be zero.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 // Choose image: apple, banana, or default to minus_sign
                 int image;

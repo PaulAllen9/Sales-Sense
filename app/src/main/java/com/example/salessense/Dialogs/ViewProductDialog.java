@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.salessense.BusinessSide.TemporaryCartData;
 import com.example.salessense.BusinessSide.register.CustomAdapterRegister;
@@ -97,6 +98,9 @@ public class ViewProductDialog {
         * Author: Paul Allen
         * last modified 5-6-2025
         *
+        * * Modified by Brian: 5/8/25
+         * - Remove individual cart items
+        *
         * When a business user attempts to view product details from the store management page
         * */
         productNameTV.setText(product.getName());
@@ -108,12 +112,15 @@ public class ViewProductDialog {
         });
         minus.setOnClickListener(view -> {
             int currentQuantity = Integer.parseInt(quantity.getText().toString().trim());
-            if(currentQuantity>1){
+            // if(currentQuantity > 1){
+            if(currentQuantity > 0){  // Brian edit: allow for 0 quantity
                 quantity.setText(String.valueOf(currentQuantity - 1));
             }
-            else{
+            /*else{
                 quantity.setText(String.valueOf(1));
             }
+
+             */
         });
         cart = new TemporaryCartData(context);
 
@@ -144,6 +151,9 @@ public class ViewProductDialog {
          * Author: Paul Allen
          * last modified 5-6-2025
          *
+         * * Modified by Brian: 5/8/25
+         * - Remove individual cart items
+         *
          * When a Customer user attempts to view product details from the store page
          * */
         productNameTV.setText(product.getName());
@@ -155,12 +165,14 @@ public class ViewProductDialog {
         });
         minus.setOnClickListener(view -> {
             int currentQuantity = Integer.parseInt(quantity.getText().toString().trim());
-            if(currentQuantity>1){
+            // if(currentQuantity > 1){
+            if(currentQuantity > 0){  // Brian edit: allow for 0 quantity
                 quantity.setText(String.valueOf(currentQuantity - 1));
-            }
+            }/*
             else{
                 quantity.setText(String.valueOf(1));
             }
+            */
         });
         addToTransactionBTN.setOnClickListener(view -> {
             TemporaryCartData transaction = new TemporaryCartData(context);
@@ -179,6 +191,9 @@ public class ViewProductDialog {
         * Author: Paul Allen
         * Last modified: 5/7/25
         *
+        * Modified by Brian: 5/8/25
+        * - Remove individual cart items
+        *
         * When a user inspects an item in their cart or register page
         * */
         productNameTV.setText(product.getName());
@@ -193,20 +208,43 @@ public class ViewProductDialog {
         });
         minus.setOnClickListener(view -> {
             int currentQuantity = Integer.parseInt(quantity.getText().toString().trim());
-            if(currentQuantity>1){
+            // if(currentQuantity > 1){
+            if(currentQuantity > 0){  // Brian edit: allow for 0 quantity
                 quantity.setText(String.valueOf(currentQuantity - 1));
-            }
+            }/*
             else{
                 quantity.setText(String.valueOf(1));
             }
+            */
         });
-        //Update Button
+        //Update Button setup for modifying or removing item from cart
         addToTransactionBTN.setText("Update Quantity");
         addToTransactionBTN.setOnClickListener(view -> {
-            product.setQuantityInCart(Integer.parseInt(quantity.getText().toString().trim()));
+            /*product.setQuantityInCart(Integer.parseInt(quantity.getText().toString().trim()));
             cart.updateProductQuantity(product);
             registerAdapter.updateProduct(product);
+
+             */
+            // Parse the new quantity input from the EditText field
+            int newQuantity = Integer.parseInt(quantity.getText().toString().trim());
+
+            if (newQuantity == 0) {
+                // Remove the product from cart and adapter if quantity is zero
+                cart.removeProduct(product);
+                registerAdapter.removeProduct(product);
+                registerAdapter.updateTotal();
+                Toast.makeText(context, "Item removed from cart", Toast.LENGTH_SHORT).show();
+            } else {
+                // Update the product quantity in cart and UI
+                product.setQuantityInCart(newQuantity);
+                cart.updateProductQuantity(product);
+                registerAdapter.updateProduct(product);
+                registerAdapter.updateTotal();
+            }
             mDialog.dismiss();
+
+
+
         });
 
         editProductBTN.setVisibility(INVISIBLE);
