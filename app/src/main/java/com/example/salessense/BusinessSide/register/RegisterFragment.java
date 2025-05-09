@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,9 @@ import java.util.Objects;
 public class RegisterFragment extends Fragment {
 
     private FragmentRegisterBinding binding;
+    private ArrayList<Product> products = new ArrayList<>();
+    private CustomAdapterRegister customAdapter;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,18 +67,59 @@ public class RegisterFragment extends Fragment {
         RecyclerView recyclerView = binding.recycler;  // Make sure this matches your XML ID
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        ArrayList<Product> products = new ArrayList<>();
+        // Brian Moved class level (above) to be accessible inside the listener
+        // ArrayList<Product> products = new ArrayList<>();
 
         //populateRecyclerView(products); // Populate the data
         TemporaryCartData transaction = new TemporaryCartData(getContext());
+
+        // Brian Moved to class level to be accessible inside the listener
         products=transaction.getCartContents();
 
 
         TextView amount= binding.totalAmount;
         // Set up the adapter
-        CustomAdapterRegister customAdapter = new CustomAdapterRegister(getContext(), products, amount);
+        // CustomAdapterRegister customAdapter = new CustomAdapterRegister(getContext(), products, amount);
+        customAdapter = new CustomAdapterRegister(getContext(), products, amount);
         recyclerView.setAdapter(customAdapter); // Attach the adapter here
         customAdapter.updateTotal();
+
+        //
+        Button checkoutButton = binding.checkoutButton;
+        checkoutButton.setOnClickListener(view -> {
+            TemporaryCartData cartData = new TemporaryCartData(getContext());
+            ArrayList<Product> cartItems = cartData.getCartContents();
+
+            if (cartItems.isEmpty()) {
+                Toast.makeText(getContext(), "Cart is empty", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Convert to Map<String, Integer> for handlePurchase()
+            Map<String, Integer> cartMap = new HashMap<>();
+            for (Product product : cartItems) {
+                cartMap.put(product.getName(), product.getQuantityInCart());
+            }
+
+            handlePurchase(cartMap); // Use existing Firestore logic
+        });
+
+        //
+        Button clearCartButton = binding.clearCartButton;
+        clearCartButton.setOnClickListener(view -> {
+            TemporaryCartData cartData = new TemporaryCartData(getContext());
+            cartData.clearCart(); // clears SQLite
+
+            products.clear(); // clears the local list
+            customAdapter.notifyDataSetChanged(); // updates RecyclerView
+
+            customAdapter.updateTotal(); // sets amount TextView to $0.00
+
+            Toast.makeText(getContext(), "Cart cleared", Toast.LENGTH_SHORT).show();
+        });
+
+
+
 
         // Set up LiveData observation
         final TextView textView = binding.textDashboard;
@@ -143,7 +188,10 @@ public class RegisterFragment extends Fragment {
             return null;
         }).addOnSuccessListener(aVoid -> {
             Toast.makeText(getContext(), "Checkout complete", Toast.LENGTH_SHORT).show();
-            cart.clear(); // clear cart after successful transaction
+            // clear cart after successful transaction
+            // cart.clear();
+            TemporaryCartData cartData = new TemporaryCartData(getContext()); // Brian added
+            cartData.clearCart(); // Brian added
         }).addOnFailureListener(e -> {
             Log.e("CheckoutError", e.getMessage(), e);
             Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
