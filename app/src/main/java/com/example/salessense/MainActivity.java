@@ -1,7 +1,10 @@
 package com.example.salessense;
 
+import static java.security.AccessController.getContext;
+
 import android.os.Bundle;
 
+import com.example.salessense.Security.signInStart;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,12 +34,14 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView textViewData;  // UI element to show Firestore data
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
